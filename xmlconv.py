@@ -1,6 +1,13 @@
+#following file on execution, creates a csv file for the coresponding XML file provided,
+#with giving the distinct number of cells and their respective numbers in the XML file 
+import os.path
+import glob
+from os import path
+from pathlib import Path
 import xml.etree.ElementTree as ET
 import csv
 from collections import Counter
+
 
 def parseXML(xmlfile):
     tree = ET.parse(xmlfile)
@@ -29,23 +36,26 @@ def savetoCSV(newsitems, filename):
         writer.writeheader()
         writer.writerows(newsitems)
 
-xmlfile = "My photo - 09-04-2019_10-11-32.xml" 
-items = parseXML(xmlfile)
-savetoCSV(items,"output.csv")
-
-species = [species["name"] for species in items] # for traversing list of 
-print("All species provided in the file are:") 
-
-print(species)
-
-print("Total no. of species provided are ")
-print(len(species))
-
 def unique(list1): 
     unique_list = Counter(list1).keys()
     unique_list_count = [ 1 for _  in range(len(unique_list))]
     unique_list_count = Counter(species).values()
     mergedIterator =  map(lambda n1, n2: (n1,n2), unique_list, unique_list_count)
     return list(mergedIterator)
-print(unique(species))
-print("\n")
+
+
+address = glob.glob('*.xml')
+#print(address)
+for single_add in address:
+    xmlfile = single_add  
+    items = parseXML(xmlfile)
+    savetoCSV(items,"output.csv")
+    species = [species["name"] for species in items] # for traversing list of all species in XML files
+
+    print("All species provided in the file are:") 
+    print(species)
+    print("Total no. of species provided are ")
+    print(len(species))
+    print(unique(species))
+    print("\n")
+
