@@ -1,6 +1,7 @@
-# following file on execution, creates a csv file for the coresponding XML file provided,
-# with giving the distinct number of cells and their respective numbers in the XML file 
-# and save the summary in .txt file 
+#following file on execution, creates a csv file for the coresponding XML file provided,
+#with giving the distinct number of cells and their respective numbers in the XML file  
+# and save the summary in .txt file.
+
 import os.path
 import glob
 from os import path
@@ -69,11 +70,11 @@ result = defaultdict(int)
 for key, value in total_list: 
     if key in temp_list:
         result[key] += value
-print(result)
+print([(k, v) for k, v in result.items()])
 
 with open('summary.txt', 'a') as out_file:
     out_file.write("Total no. of species provided are\n{}\n{}\n and each species are in total:\n{}".format(
-        len(temp_list),temp_list,result))
+        len(temp_list),temp_list,[(k, v) for k, v in result.items()]))
 
 # this below dumped part of code which was alternative of above which was not working.
 
