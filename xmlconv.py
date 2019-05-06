@@ -1,5 +1,6 @@
-#following file on execution, creates a csv file for the coresponding XML file provided,
-#with giving the distinct number of cells and their respective numbers in the XML file 
+# following file on execution, creates a csv file for the coresponding XML file provided,
+# with giving the distinct number of cells and their respective numbers in the XML file 
+# and save the summary in .txt file 
 import os.path
 import glob
 from os import path
@@ -7,8 +8,10 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 import csv
 from collections import Counter
+from collections import defaultdict
 
-
+total_list = [] 
+temp_list = []
 def parseXML(xmlfile):
     tree = ET.parse(xmlfile)
     root = tree.getroot()
@@ -51,11 +54,65 @@ for single_add in address:
     items = parseXML(xmlfile)
     savetoCSV(items,"output.csv")
     species = [species["name"] for species in items] # for traversing list of all species in XML files
-
+    temp_list = temp_list + species
+    total_list = total_list + unique(species)
+    print(single_add)
     print("All species provided in the file are:") 
     print(species)
     print("Total no. of species provided are ")
     print(len(species))
     print(unique(species))
     print("\n")
+
+temp_list = Counter(temp_list).keys()
+result = defaultdict(int) 
+for key, value in total_list: 
+    if key in temp_list:
+        result[key] += value
+print(result)
+
+with open('summary.txt', 'a') as out_file:
+    out_file.write("Total no. of species provided are\n{}\n{}\n and each species are in total:\n{}".format(
+        len(temp_list),temp_list,result))
+
+# this below dumped part of code which was alternative of above which was not working.
+
+#print(temp_list)
+# print("\n")
+# print(total_list)
+
+# def ispresent(key,list):
+#     for qwerty in list:
+#         if qwerty == key:
+#             return 1
+#         else:
+#             return 0
+
+# def indexreturn(key,list):
+#     counter = 0
+#     for qwerty in list:
+#         if qwerty != key:
+#             counter = counter + 1
+#         else:
+#             return counter
+
+# def mult_indexreturn(key,list):
+#     for i in range(len(list)):
+#         if key == list[i][0]:
+#                 return i
+
+# final = [(1,0),(2,3),(7,8),(6,0)]
+# #print(mult_indexreturn(,final))
+# # print(ispresent((4,2),final))
+
+# print(temp_list[0])
+# final = map(lambda n1, n2: (n1,n2 ), temp_list,[ 0 for _  in range(len(temp_list))])
+# for object2 in total_list:
+#     for object1 in temp_list:
+#         if object2 == object1:
+#             final[  indexreturn(object2,final) ][1] = final[  indexreturn(object2, final)  ][1] + object2[mult_indexreturn(object2,total_list)][1]#total_list[ mult_indexreturn(object2,total_list) ][1]
+# print(final)
+
+
+
 
