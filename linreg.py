@@ -46,9 +46,9 @@ def linear_reg (x,y):
 	if len(x) == len(y):
 		theta0 = random.randint(-10,10)
 		theta1 = random.randint(-10,10)
-		alpha = 0.1 # problem in how to decide the the factor to be smal or large
+		alpha = 0.01 # problem in how to decide the the factor to be smal or large
 
-		while gradient_des(theta0,theta1,x,y) != 0 : # probably error in this converging condition
+		while gradient_des(theta0,theta1,x,y) > 10**(-16) : # probably error in this converging condition
 			temp0 = theta0 - alpha * summed_lin(theta0,theta1,x,y)
 			temp1 = theta1 - alpha * summed_lin_weighted(theta0,theta1,x,y)
 			# print(temp0)
@@ -63,7 +63,7 @@ def linear_reg (x,y):
 		printf("x and y are of inequal length")
 
 x = []
-for i in range(10):
+for i in range(25):
 	x = x + [i]
 print(x)
 #x = [1,2,3,4,5,6]
@@ -72,7 +72,7 @@ for i in range(len(y)):
 	y[i] = random.randint(-100,100)
 print(y)
 # y = [13,10,8.75,4,5.5,2]
-x_range = np.linspace(-1, 10, 1000)
+x_range = np.linspace(-1, 25, 1000)
 
 parameters = linear_reg(x,y)
 fig, yfunc = plt.subplots()
