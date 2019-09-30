@@ -1,0 +1,39 @@
+man sudo_root
+
+nvidia-smi
+nvidia-smi -q
+nvcc -V
+
+sudo apt install nvidia-cuda-toolkit
+conda install -c conda-forge keras tensorflow
+
+https://www.youtube.com/watch?v=LZMkcepNxF0 								// for setting up sublime for ssh remote servers
+
+
+conda create -n yourenvname python=x.x anaconda 							// for creating anaconda env.
+
+
+https://stackoverflow.com/questions/45197777/how-do-i-update-anaconda 					//upgrading anaconda and its package
+
+
+chmod +x [FILENAME]
+sudo ./[FILENAME]
+
+
+http://www.askaswiss.com/2019/01/how-to-install-cuda-9-cudnn-7-ubuntu-18-04.html 			// installing cuda for tensorflow-gpu
+
+sudo systemctl restart networking
+sudo /etc/init.d/networking stop
+sudo /etc/init.d/networking start
+sudo /etc/init.d/networking restart
+
+https://computingforgeeks.com/how-to-install-latest-adobe-flash-player-on-ubuntu-18-04-linux/          //for installing adobe flash player for ubuntu 18.04
+
+
+lsof -i :9090 												// to find out process using this localhostID
+sudo kill -9 <pid> 											// getting processID associated to that local host
+
+
+pgrep -f prometheus											// to find running binary name like prometheus pID
+kill -TERM 1234 											// to kill the process associated with pID
+
