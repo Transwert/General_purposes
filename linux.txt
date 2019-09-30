@@ -21,6 +21,7 @@ sudo ./[FILENAME]
 
 
 http://www.askaswiss.com/2019/01/how-to-install-cuda-9-cudnn-7-ubuntu-18-04.html 			// installing cuda for tensorflow-gpu
+https://askubuntu.com/questions/1077061/how-do-i-install-nvidia-and-cuda-drivers-into-ubuntu
 
 sudo systemctl restart networking
 sudo /etc/init.d/networking stop
