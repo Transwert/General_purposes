@@ -1,19 +1,16 @@
 """
-=======
-Buttons
-=======
+Constructing a simple button GUI to modify a straight laser's path
 
-Constructing a simple button GUI to modify a straight laser
-
-The ``up`` and ``down` button widget helps visualize the laser with
-new slope
+The `up` and `down` button widget helps visualize the laser, i.e. moving the laser to required position 
+using Electro-magnetic coil
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.patches import Rectangle
 from matplotlib.widgets import Button
 
-slope = np.array([-4, -3, -2, -1, 0, 1, 2, 3, 4])
+Lspot_displ = np.array([-4, -3, -2, -1, 0, 1, 2, 3, 4])
 
 fig, ax = plt.subplots()
 plt.subplots_adjust(bottom=0.2)
@@ -24,22 +21,24 @@ t = np.arange(0.0, 1.0, 0.001)
 coil_l = np.arange(0, 0.2, 0.1)
 coil_up = [0.5 for item in coil_l]
 coil_down = [-0.5 for item in coil_l]
-print(coil_l,coil_up,coil_down)
-plt.plot(coil_l, coil_up, lw=2)
-plt.plot(coil_l, coil_down, lw=2)
+# print(coil_l,coil_up,coil_down)
+plt.plot(coil_l, coil_up, lw=2, label = 'Electromagnetic Coil', color = "red")
+plt.plot(coil_l, coil_down, lw=2, color = "red")
 
-# s = np.sin(2*np.pi*freqs[0]*t)
-s = slope[4] * t
-l, = plt.plot(t, s, lw=2)
+Rectangle((0,0.1),0.75,0.2,angle = 0.0,fill = True)
 
+s = Lspot_displ[4] * t
+l, = plt.plot(t, s, linestyle= ':', lw=4, label = 'laser being emitted')
+plt.title('Laser_simulation')
+plt.legend()
 
 class Index(object):
     ind = 4
 
     def up(self, event):
         self.ind += 1
-        i = self.ind % len(slope)
-        ydata = slope[i] * t
+        i = self.ind % len(Lspot_displ)
+        ydata = Lspot_displ[i] * t
         l.set_ydata(ydata)
         plt.plot(coil_l, coil_up, lw=2)
         plt.plot(coil_l, coil_down, lw=2)
@@ -48,8 +47,8 @@ class Index(object):
 
     def down(self, event):
         self.ind -= 1
-        i = self.ind % len(slope)
-        ydata = slope[i] * t
+        i = self.ind % len(Lspot_displ)
+        ydata = Lspot_displ[i] * t
         l.set_ydata(ydata)
         plt.plot(coil_l, coil_up, lw=2)
         plt.plot(coil_l, coil_down, lw=2)
